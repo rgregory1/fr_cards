@@ -1,0 +1,58 @@
+div.card-shape{
+    /* height: 200px;
+    width: 100px; */
+    background-color: #999;
+    color: #fff;
+    font-size: 100px;
+    background-image: url("bikeicon.png");
+    background-size: contain;
+    text-align: center;
+}
+
+div.card-shape{
+
+}
+
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type=radio]:checked + label>img {
+  border: 1px solid #fff;
+  box-shadow: 0 0 3px 3px #000;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>img {
+  border: 2px solid #999;
+  width: 150px;
+  height: 150px;
+  transition: 500ms all;
+}
+
+input[type=radio]:checked + label>img {
+  transform:
+    rotateZ(-10deg)
+    rotateX(10deg);
+}
+
+/* trial stuff for my card shape */
+input[type=radio]:checked + label>div {
+  border: 1px solid #fff;
+  box-shadow: 0 0 3px 3px #000;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>div {
+  border: 2px solid #999;
+  width: 150px;
+  height: 150px;
+  transition: 500ms all;
+}
+
+input[type=radio]:checked + label>div {
+  transform:
+    rotateZ(-10deg)
+    rotateX(10deg);
+}

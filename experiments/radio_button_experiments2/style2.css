@@ -1,0 +1,32 @@
+.box {
+    background: red;
+    /* float: left; */
+    width: 100px;
+    margin: 10px;
+    height: 100px;
+}
+
+
+
+/* .input-hidden {
+  position: absolute;
+  left: -9999px;
+} */
+
+.box + input[type=radio]:checked {
+  border: 1px solid #000;
+}
+
+/* Stuff after this is only to make things more pretty */
+/* input[type=radio]  {
+  border: 1px dashed #444;
+  width: 150px;
+  height: 150px;
+  transition: 500ms all;
+}
+
+input[type=radio]:checked {
+  transform:
+    rotateZ(-10deg)
+    rotateX(10deg);
+} */
