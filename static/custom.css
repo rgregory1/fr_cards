@@ -35,6 +35,14 @@ div.green-card{
     background-repeat: no-repeat;
 }
 
+div.pink-card{
+    background-color: #fadadd;
+    /* background-image:  linear-gradient(90deg,transparent calc(50% - 5px), #000 calc(50% - 5px), #000 calc(50% + 5px), transparent calc(50% + 5px)); */
+    background-image: url(vertical_line.png);
+    background-position: 0 10px;
+    background-position: 82px 0px;
+    background-repeat: no-repeat;
+}
 
 .input-hidden {
   position: absolute;

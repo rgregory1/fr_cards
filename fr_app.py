@@ -11,6 +11,8 @@ app.debug = True
 app.config["SECRET_KEY"] = "<replace with a secret key>"
 
 toolbar = DebugToolbarExtension(app)
+# DEBUG_TB_INTERCEPT_REDIRECTS = False
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 
 # Set the secret key to some random bytes. Keep this really secret!
@@ -21,13 +23,22 @@ sprinter_cards_begin = [2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 9, 9, 9]
 
 @app.route("/")
 def home():
+    # clear all cookies to setup new player
     session.clear()
     return render_template("home.html")
 
 
+@app.route("/setup", methods=["POST", "GET"])
+def setup():
+    # collect form info
+    session["player_name"] = request.form["player_name"]
+    session["team_color"] = request.form["team_color"]
+    return redirect(url_for("view_hand"))
+
+
 @app.route("/view_hand", methods=["POST", "GET"])
 def view_hand():
-    session["team_color"] = "green-card"
+    # session["team_color"] = "green-card"
     #     print(5 * "\n")
     #     print("checking for session cards in cookie")
     if session.get("sprint_deck"):
