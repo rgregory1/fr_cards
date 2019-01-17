@@ -29,7 +29,9 @@
     </nav>
 
     <div class="container">
-
+        {% if session['round'] %}
+        <p>Round: {{ session['round'] }}
+        {% endif %}
     {% block body %} {% endblock %}
 
     </div>

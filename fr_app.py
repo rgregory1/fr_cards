@@ -18,7 +18,24 @@ app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = "my_secret"
 
-sprinter_cards_begin = [2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 9, 9, 9]
+sprinter_cards_begin = [
+    [2, "S"],
+    [2, "S"],
+    [2, "S"],
+    [3, "S"],
+    [3, "S"],
+    [3, "S"],
+    [4, "S"],
+    [4, "S"],
+    [4, "S"],
+    [5, "S"],
+    [5, "S"],
+    [5, "S"],
+    [9, "S"],
+    [9, "S"],
+    [9, "S"],
+]
+# sprinter_cards_begin = [2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 9, 9, 9]
 
 
 @app.route("/")
@@ -33,6 +50,7 @@ def setup():
     # collect form info
     session["player_name"] = request.form["player_name"]
     session["team_color"] = request.form["team_color"]
+    session["round"] = 1
     return redirect(url_for("view_hand"))
 
 
@@ -95,7 +113,8 @@ def new_hand():
 @app.route("/result", methods=["POST", "GET"])
 def result():
     result = request.form["card_choice"]
-    return "your result is: " + result
+    this_thing = result[0]
+    return "your result is: " + this_thing
 
 
 #

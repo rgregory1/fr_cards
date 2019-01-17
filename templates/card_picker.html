@@ -3,18 +3,18 @@
 {% block body %}
     <h1 class="bd-title">Your Hand</h1>
 
-    <form method="POST" action="{{ url_for('view_hand') }}">
+    <form method="POST" action="{{ url_for('result') }}">
 
         <div class="row">
             {% for card in current_hand %}
 
             <div class="col-sm">
-                <input type="radio" id="card_{{ loop.index }}"name="card_choice" class="input-hidden" />
+                <input type="radio" id="card_{{ loop.index }}" name="card_choice" class="input-hidden" value="{{ loop.index0 }}" />
                 <label for="card_{{ loop.index }}">
 
                     <div class="card-shape {{ team_color }}">
-                        <span class="mini-letter">R</span>
-                        <p>{{ card }}</p>
+                        <span class="mini-letter">{{ card[1] }}</span>
+                        <p>{{ card[0] }}</p>
                     </div>
                 </label>
             </div>
