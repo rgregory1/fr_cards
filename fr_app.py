@@ -19,6 +19,12 @@ app.secret_key = "my_secret"
 sprinter_cards_begin = [2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 9, 9, 9]
 
 
+@app.route("/")
+def home():
+    session.clear()
+    return render_template("home.html")
+
+
 @app.route("/view_hand", methods=["POST", "GET"])
 def view_hand():
     session["team_color"] = "green-card"
