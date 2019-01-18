@@ -1,31 +1,32 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <h1 class="bd-title">Your Hand</h1>
-
-    <form method="POST" action="{{ url_for('first_choice') }}">
+    <h1 class="bd-title">Your Choice</h1>
 
         <div class="row">
-            {% for card in session['current_hand'] %}
+            {% for card in choosen_cards %}
 
             <div class="col-sm">
-                <input type="radio" id="card_{{ loop.index }}" name="card_choice" class="input-hidden" value="{{ loop.index0 }}" />
-                <label for="card_{{ loop.index }}">
 
                     <div class="card-shape {{ card[2] }}">
                         <span class="mini-letter">{{ card[1] }}</span>
                         <p>{{ card[0] }}</p>
                     </div>
-                </label>
+
             </div>
 
             {% endfor %}
         </div><!--endrow-->
         <div class="row mt-5">
-        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        <button class="btn btn-primary btn-lg">Reveal</button>
         </div><!--endrow-->
 
 
     </form>
 
+{% endblock %}
+
+{% block script %}
+    
+    <script src="{{ url_for('static', filename='js/jquery.flip.min.js') }}"></script>
 {% endblock %}

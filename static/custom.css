@@ -12,12 +12,12 @@
 
 
 div.card-shape{
-    /* height: 200px;
-    width: 100px; */
+    width: 170px;
+    height: 240px;
     background-color: #999;
     color: #fff;
     font-size: 150px;
-    background-image: url("bikeicon.png");
+    /* background-image: url("bikeicon.png");*/
     background-size: contain;
     text-align: center;
     border-radius: 5px;
@@ -28,7 +28,6 @@ div.card-shape{
 
 div.green-card{
     background-color: #79c879;
-    /* background-image:  linear-gradient(90deg,transparent calc(50% - 5px), #000 calc(50% - 5px), #000 calc(50% + 5px), transparent calc(50% + 5px)); */
     background-image: url(vertical_line.png);
     background-position: 0 10px;
     background-position: 82px 0px;
@@ -37,7 +36,14 @@ div.green-card{
 
 div.pink-card{
     background-color: #fadadd;
-    /* background-image:  linear-gradient(90deg,transparent calc(50% - 5px), #000 calc(50% - 5px), #000 calc(50% + 5px), transparent calc(50% + 5px)); */
+    background-image: url(vertical_line.png);
+    background-position: 0 10px;
+    background-position: 82px 0px;
+    background-repeat: no-repeat;
+}
+
+div.blue-card{
+    background-color: #4e90f8;
     background-image: url(vertical_line.png);
     background-position: 0 10px;
     background-position: 82px 0px;

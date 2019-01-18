@@ -1,6 +1,7 @@
 from flask import Flask, session, render_template, url_for, redirect, request
 import random
 from flask_debugtoolbar import DebugToolbarExtension
+from pprint import pprint
 
 app = Flask(__name__)
 
@@ -19,21 +20,21 @@ app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 app.secret_key = "my_secret"
 
 sprinter_cards_begin = [
-    [2, "S"],
-    [2, "S"],
-    [2, "S"],
-    [3, "S"],
-    [3, "S"],
-    [3, "S"],
-    [4, "S"],
-    [4, "S"],
-    [4, "S"],
-    [5, "S"],
-    [5, "S"],
-    [5, "S"],
-    [9, "S"],
-    [9, "S"],
-    [9, "S"],
+    [2, "S", ""],
+    [2, "S", ""],
+    [2, "S", ""],
+    [3, "S", ""],
+    [3, "S", ""],
+    [3, "S", ""],
+    [4, "S", ""],
+    [4, "S", ""],
+    [4, "S", ""],
+    [5, "S", ""],
+    [5, "S", ""],
+    [5, "S", ""],
+    [9, "S", ""],
+    [9, "S", ""],
+    [9, "S", ""],
 ]
 # sprinter_cards_begin = [2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 9, 9, 9]
 
@@ -51,104 +52,45 @@ def setup():
     session["player_name"] = request.form["player_name"]
     session["team_color"] = request.form["team_color"]
     session["round"] = 1
+    session["choosen_cards"] = []
+    session["current_hand"] = []
+    for card in sprinter_cards_begin:
+        card[2] = session["team_color"]
+    session["sprint_deck"] = sprinter_cards_begin
+    session["sprinter_discards"] = []
+    session["sprinter_recycle"] = []
     return redirect(url_for("view_hand"))
 
 
 @app.route("/view_hand", methods=["POST", "GET"])
 def view_hand():
-    # session["team_color"] = "green-card"
-    #     print(5 * "\n")
-    #     print("checking for session cards in cookie")
-    if session.get("sprint_deck"):
-        #         print("\n")
-        print("found sprint dec in cookies")
-    #         print("sprint deck from cookies is: ")
-    #         print(session["sprint_deck"])
-    #         print(bool(session["sprint_deck"]))
-    #         if session["sprint_deck"] == False:
-    #             print("assigning session deck to variable")
-    #             sprinter_cards = session["sprint_deck"]
-    #             print(sprinter_cards)
-    #         else:
-    #             print("into the else statement meaning it is True")
-    #             session["sprint_deck"] = sprinter_cards_begin
-    #             session.modified = True
-    #             print("just reset sprint_deck")
-    #
-    #             sprinter_cards = session["sprint_deck"]
-    else:
-        print("no sprint deck in cookies, setting it now")
-        session["sprint_deck"] = sprinter_cards_begin
-    #         print(session["sprint_deck"])
-    #         sprinter_cards = session["sprint_deck"]
-    #     print("out of loop now")
-    #     session["trial"] = "it works"
-    session["current_hand"] = []
     random.shuffle(session["sprint_deck"])
-
-    #     print(sprinter_cards)
     for x in range(3):
         current_card = session["sprint_deck"].pop()
         print(current_card)
         session["current_hand"].append(current_card)
-    current_hand = session["current_hand"]
-    #     print(current_hand)
-    #     print(sprinter_cards)
-    card_type = "sprinter"
-    team_color = session["team_color"]
-    return render_template(
-        "card_picker.html",
-        current_hand=current_hand,
-        card_type=card_type,
-        team_color=team_color,
-    )
+    print("line72")
+    print(session["current_hand"])
+    return render_template("card_picker.html")
 
 
-@app.route("/new_hand")
-def new_hand():
-    sprinter_cards = [2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 9, 9, 9]
-    return redirect(url_for("view_hand"))
-
-
-@app.route("/result", methods=["POST", "GET"])
-def result():
-    result = request.form["card_choice"]
-    this_thing = result[0]
-    return "your result is: " + this_thing
-
-
-#
-# @app.route("/")
-# def session_test():
-#     if session.get("trial1"):
-#         result = "We have trial: and it is a list"
-#         print("\n")
-#         print(bool(session["trial1"]))
-#         if len(session["trial1"]) > 1:
-#             random.shuffle(session["trial1"])
-#             session["current_card"] = session["trial1"].pop()
-#             print("inside the greater than 1 loop")
-#             trial1 = session["trial1"]
-#         else:
-#             session["current_card"] = session["trial1"].pop()
-#             trial1 = session["trial1"]
-#             session.pop("trial1", None)
-#             result = "no more list"
-#
-#         return render_template("blank.html", result=result, trial1=trial1)
-#
-# else:
-#     result = "There is no trial viriable"
-#     session["trial1"] = [1, 2, 3]
-#     result = "There is no trial viriable"
-#     trial1 = session["trial1"]
-#     return render_template("blank.html", result=result, trial1=trial1)
-
-
-@app.route("/set_color/<color>")
-def set_color(color):
-    session["team_color"] = color
-    return "team color is now {}".format(color)
+@app.route("/first_choice", methods=["POST", "GET"])
+def first_choice():
+    # pull card choice from form and turn it into an integer
+    result_number = request.form["card_choice"]
+    result_number = int(result_number)
+    print(result_number)
+    print(session["current_hand"])
+    # get the chosen card from the hand
+    result = session["current_hand"].pop(result_number)
+    session["choosen_cards"].append(result)
+    # add the 'unchosen' cards to the recyle pile
+    session["sprinter_recycle"].extend(session["current_hand"])
+    # add chosen card to the discard pile
+    choosen_cards = session["choosen_cards"]
+    session["sprinter_discards"].extend(result)
+    # session["current_hand"] = []
+    return render_template("first_choice.html", choosen_cards=choosen_cards)
 
 
 @app.route("/delete-value/")
