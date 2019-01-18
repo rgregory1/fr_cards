@@ -9,6 +9,11 @@
     border-radius: 50%;
 }
 
+.central-letter {
+    font-size: 40px;
+    background-color: brown;
+    border-radius: 50%;
+}
 
 
 div.card-shape{
@@ -24,6 +29,11 @@ div.card-shape{
     border: 5px solid #999;
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.18);
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18); */
+}
+
+div.card-back-sprinter {
+    background-color: #79c879;
+    background-image: url(vertical_line.png);
 }
 
 div.green-card{

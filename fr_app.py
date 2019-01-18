@@ -71,6 +71,7 @@ def view_hand():
         session["current_hand"].append(current_card)
     print("line72")
     print(session["current_hand"])
+    session["second_current_hand"] = [i for i in session["current_hand"]]
     return render_template("card_picker.html")
 
 
@@ -82,10 +83,10 @@ def first_choice():
     print(result_number)
     print(session["current_hand"])
     # get the chosen card from the hand
-    result = session["current_hand"].pop(result_number)
+    result = session["second_current_hand"].pop(result_number)
     session["choosen_cards"].append(result)
     # add the 'unchosen' cards to the recyle pile
-    session["sprinter_recycle"].extend(session["current_hand"])
+    session["sprinter_recycle"].extend(session["second_current_hand"])
     # add chosen card to the discard pile
     choosen_cards = session["choosen_cards"]
     session["sprinter_discards"].extend(result)
